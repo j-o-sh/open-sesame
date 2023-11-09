@@ -1,0 +1,17 @@
+{
+  "name": "open-sesame",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "xstart": "node src/server.js",
+    "start": "vite --port 9000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^4.5.0"
+  }
+}

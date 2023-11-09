@@ -1,0 +1,29 @@
+html, body {
+  margin: 0;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+:root {
+  --c-bg: #222;
+  --c-fg: #ddd;
+}
+
+body {
+  background: var(--c-bg);
+  color: var(--c-fg);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel {
+  border: 2px solid orange;
+  border-radius: 4px;
+  align-self: stretch;
+  padding: 1em;
+  margin: 1em;
+}
+

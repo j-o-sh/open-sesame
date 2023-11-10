@@ -59,6 +59,7 @@ function apiServer(api) {
     const { url, method } = req
     const [endpoint, matches = []] = bind(url)
     const endWithStatus = (code, payload) => {
+        console.error('😡', payload)
         res.statusCode = code
         res.end(`${payload}`)
     }
@@ -69,7 +70,7 @@ function apiServer(api) {
         const handler = endpoint[method.toLowerCase()]
 
         if (handler) {
-          handler(...matches)
+          handler({ request: req, matches })
             .then(x => res.end(x))
             .catch(e => endWithStatus(500, e)) 
         } else {

@@ -14,14 +14,10 @@
     </script>
   </head>
   <body>
-    <form>
+    <form hx-get="/api/random-challenge" hx-target="#output" hx-swap="innerHTML">
       <input type="hidden" name="salt"> 
       <input type="hidden" name="account-id">
-    <button hx-get="/api/random-challenge"
-            hx-ext="random-challenge-attributes"
-            hx-target="#output" 
-            hx-swap="innerHTML swap:250ms"
-    >lLocked</button>
+      <input type="submit" value="Locked!">
     </form>
     <p class="panel" id="output"></p>
   </body>

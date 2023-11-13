@@ -14,12 +14,21 @@
     </script>
   </head>
   <body>
-    <form hx-get="/api/random-challenge" hx-target="#output" hx-swap="innerHTML">
+    <p>1. get a random challenge</p>
+    <form hx-get="/api/random-challenge" 
+          hx-target="#random-challenge" 
+          hx-swap="innerHTML">
       <input type="hidden" name="salt"> 
       <input type="hidden" name="account-id">
-      <input type="submit" value="Locked!">
+      <input type="submit" value="Do it!">
     </form>
-    <p class="panel" id="output"></p>
+    <p class="panel"><i class="fas fa-door-open"></i><span id="random-challenge"></span></p>
+    <p>2. Create credentials via browser api</p> 
+    <div class="panel">
+      <p><i class="fas fa-key"></i><span id="public-key"></span></p>
+      <p><i class="fas fa-passport"></i><span id="credential-id"></span></p>
+      <p><i class="fas fa-door-closed"></i><span id="signed-challenge-key"></span></p>
+    </div>
   </body>
 </html>
 

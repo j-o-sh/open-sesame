@@ -1,3 +1,5 @@
+@import url('./node_modules/@fortawesome/fontawesome-free/css/all.min.css');
+
 html, body {
   margin: 0;
   box-sizing: border-box;
@@ -25,5 +27,17 @@ body {
   align-self: stretch;
   padding: 1em;
   margin: 1em;
+  display: flex;
+  gap: 1em;
+
+  & > :not(.fas) { 
+    flex: 1;
+  }
+}
+
+div.panel {
+  flex-direction: column;
+
+
 }
 

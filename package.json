@@ -13,5 +13,8 @@
   "license": "ISC",
   "devDependencies": {
     "vite": "^4.5.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.2"
   }
 }

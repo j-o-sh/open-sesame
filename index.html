@@ -9,25 +9,79 @@
     <script type="module">
       import * as v from './src/vanilla-plus'
 
+      async function getCredentials () {
+        const salt = v.at('input[name=salt]').get('value')
+        const accountId = v.at('input[name=account-id]').get('value')
+        const challenge = v.at('#random-challenge').text()
+        const enc = new TextEncoder()
+        const credz = await navigator.credentials.get({ publicKey: {
+          challenge: enc.encode([salt, challenge].join(''))
+        } })
+        console.log('😱', credz)
+      }
+
+      async function createCredentials () {
+        const salt = v.at('input[name=salt]').get('value')
+        const accountId = v.at('input[name=account-id]').get('value')
+        const challenge = v.at('#random-challenge').text()
+
+        console.log(salt, accountId, challenge)
+        const enc = new TextEncoder()
+        try {
+        const credz = await navigator.credentials.create({
+          publicKey: {
+            challenge: enc.encode([salt, challenge].join('')),
+            rp: { name: 'Open Sesame Inc.'},
+            user: {
+              id: enc.encode(accountId),
+              name: 'Alice',
+              displayName: 'Alice'
+            },
+            pubKeyCredParams: [ {type: "public-key", alg: -7} ]
+          }
+        })
+        console.log('🚀', credz)
+        } catch (err) { console.error('‼️', err) }
+      }
+
       v.at('input[name=salt]').set('value', crypto.randomUUID())
       v.at('input[name=account-id]').set('value', crypto.randomUUID())
+
+      v.on('click').at('#create-credentials').perform(createCredentials)
+      v.on('click').at('#get-credentials').perform(getCredentials)
     </script>
   </head>
   <body>
-    <p>1. get a random challenge</p>
     <form hx-get="/api/random-challenge" 
           hx-target="#random-challenge" 
           hx-swap="innerHTML">
       <input type="hidden" name="salt"> 
       <input type="hidden" name="account-id">
-      <input type="submit" value="Do it!">
+      <input type="submit" value="1. Get a random challenge">
     </form>
-    <p class="panel"><i class="fas fa-door-open"></i><span id="random-challenge"></span></p>
-    <p>2. Create credentials via browser api</p> 
+    <p class="panel">
+      <i class="fas fa-door-open"></i>
+      <span id="random-challenge"></span>
+    </p>
+    <button id="get-credentials">
+      2. Try to get existing credentials
+    </button>
+    <button id="create-credentials">
+      3. Create credentials via browser api
+    </button>
     <div class="panel">
-      <p><i class="fas fa-key"></i><span id="public-key"></span></p>
-      <p><i class="fas fa-passport"></i><span id="credential-id"></span></p>
-      <p><i class="fas fa-door-closed"></i><span id="signed-challenge-key"></span></p>
+      <p>
+        <i class="fas fa-key"></i>
+        <span id="public-key"></span>
+      </p>
+      <p>
+        <i class="fas fa-passport"></i>
+        <span id="credential-id"></span>
+      </p>
+      <p>
+        <i class="fas fa-door-closed"></i>
+        <span id="signed-challenge-key"></span>
+      </p>
     </div>
   </body>
 </html>

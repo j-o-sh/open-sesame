@@ -64,17 +64,17 @@ function apiServer(api) {
         res.end(`${payload}`)
     }
 
-    console.info('✨ ', method, '\t', url, matches, endpoint)
     if (endpoint) {
       try {
         const handler = endpoint[method.toLowerCase()]
+        console.info('✨ ', method, '\t', url, matches, endpoint)
 
         if (handler) {
           handler({ request: req, matches })
             .then(x => res.end(x))
             .catch(e => endWithStatus(500, e)) 
         } else {
-          endWithStatus(400, '👮‍♀️')
+          endWithStatus(400, '👮')
         }
       } catch (e) {
         endWithStatus(500, e)

@@ -36,22 +36,33 @@ function whenAt(selector, performOn) {
 }
 
 export function at (selector) {
-  return { set: (attribute, value) => {
-    for (const element of document.querySelectorAll(selector)) {
-      element.setAttribute(attribute, value)
-    }
-  }}
+  const q = () => document.querySelector(selector)
+  return { 
+    set: (attribute, value) => {
+      for (const element of document.querySelectorAll(selector)) {
+        element.setAttribute(attribute, value)
+      }
+    },
+    get: (attribute) => q()?.getAttribute(attribute),
+    text: () => q()?.textContent?.trim()
+  }
 }
 
 /**
  * Example: v.on('load').at('input[name=salt]').set('value', Date.now())
  */
 export function on (type) {
-  return { at: selector => ({ set: (attribute, value) => {
-    pushListener(type, whenAt(
+  const onEventAt = (selector, action, ...args) => 
+    pushListener(type, whenAt(selector, () => action(...args)))
+  return { at: selector => ({ 
+    set: (attribute, value) => { onEventAt(
       selector, 
       target => target.setAttribute(attribute, value)
-    ))
-  }})}
+    )},
+    perform: (action, ...params) => {onEventAt(
+      selector,
+      () => action(...params)
+    )}
+  })}
 }
 

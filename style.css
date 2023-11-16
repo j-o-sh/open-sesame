@@ -9,6 +9,7 @@ html, body {
 :root {
   --c-bg: #222;
   --c-fg: #ddd;
+  --c-act: lightskyblue;
 }
 
 body {
@@ -22,11 +23,7 @@ body {
 }
 
 .panel {
-  border: 2px solid orange;
-  border-radius: 4px;
   align-self: stretch;
-  padding: 1em;
-  margin: 1em;
   display: flex;
   gap: 1em;
 
@@ -39,5 +36,25 @@ div.panel {
   flex-direction: column;
 
 
+}
+
+input[type=submit], .panel, button {
+  border: 2px solid orange;
+  border-radius: 4px;
+  padding: 1em;
+  margin: 1em;
+  background: none;
+}
+
+input[type=submit], button {
+  margin-top: 5em;
+  color: var(--c-act);
+  border-color: var(--c-act);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.panel p {
+  font-family: monospace;
 }
 
